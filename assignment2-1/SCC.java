@@ -16,7 +16,7 @@ public class SCC{
         String tmpLine;
         String[] tmpInput;
         int v1,v2;
-        Integer count = 1000000;
+        Integer count = 900000;
 
         adjList = new HashMap<Integer,List<Integer>>();
 
@@ -58,16 +58,16 @@ public class SCC{
             }
         }
     }
-    private static void DFS(Map<Integer,List<Integer>> graph,Integer v){
+    private static void DFS(Integer v){
         try{
             Integer i;
             explored.add(v);
             // vertLeader.put(v,s);
-            if(graph.containsKey(v)){
-                List<Integer> tmpList = graph.get(v);
+            if(adjListRev.containsKey(v)){
+                List<Integer> tmpList = adjListRev.get(v);
                 for(i=0;i<tmpList.size();i++){
                     if(!explored.contains(tmpList.get(i))){
-                        DFS(graph,tmpList.get(i));
+                        DFS(tmpList.get(i));
                     }
                 }
             }
@@ -92,7 +92,7 @@ public class SCC{
             v1 = entry.getKey();
             if(!explored.contains(v1)){
                 s = v1;
-                DFS(adjListRev,v1);
+                DFS(v1);
             }
         }
 
