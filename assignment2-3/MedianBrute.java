@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.io.*;
 
 public class MedianBrute{
@@ -18,6 +16,15 @@ public class MedianBrute{
     }
     public static void main(String[] argv) throws Exception{
         List<Integer> number = readFile("Median.txt");
-        System.out.println(Arrays.toString(number.toArray()));
+        List<Integer> medians = new ArrayList<Integer>();
+        List<Integer> tmpList;
+        Integer i;
+        for(i=1;i<=number.size();i++){
+            tmpList = number.subList(0, i);
+            Collections.sort(tmpList);
+            medians.add(tmpList.get((tmpList.size()-1)/2));
+        }
+        // System.out.println(Arrays.toString(medians.toArray()));
+        System.out.println(medians.stream().mapToInt(Integer::intValue).sum()%10000);
     }
 }
