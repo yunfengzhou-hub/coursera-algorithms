@@ -10,6 +10,7 @@ public class SCC{
     static Integer t,s;
     static Map<Integer,Integer> vertOrder,vertLeader,strongComponents;
     static Set<Integer> explored;
+    static List<Integer> DFSdata1,DFSdata2;
     private static void readFile() throws Exception{
         File file = new File("SCC.txt");
         BufferedReader br = new BufferedReader(new FileReader(file)); 
@@ -58,26 +59,45 @@ public class SCC{
             }
         }
     }
-    private static void DFS(Integer v){
-        try{
-            Integer i;
-            explored.add(v);
-            // vertLeader.put(v,s);
-            if(adjListRev.containsKey(v)){
-                List<Integer> tmpList = adjListRev.get(v);
-                for(i=0;i<tmpList.size();i++){
-                    if(!explored.contains(tmpList.get(i))){
-                        DFS(tmpList.get(i));
-                    }
-                }
-            }
-            // t ++;
-            // vertOrder.put(v,t);
-        }catch(Exception e){
-            System.out.println(e);
-            System.exit(-1);
-        }
+    // private static void DFS(Integer v){
+    //     Integer i;
+    //     explored.add(v);
+    //     // vertLeader.put(v,s);
+    //     if(adjListRev.containsKey(v)){
+    //         // List<Integer> tmpList = adjListRev.get(v);
+    //         for(i=0;i<adjListRev.get(v).size();i++){
+    //             // j = adjListRev.get(v).get(i);
+    //             if(!explored.contains(adjListRev.get(v).get(i))){
+    //                 // tmpList = null;
+    //                 // System.gc();
+    //                 DFS(adjListRev.get(v).get(i));
+    //                 // tmpList = adjListRev.get(v);
+    //             }
+    //         }
+    //     }
+    //     // t ++;
+    //     // vertOrder.put(v,t);
         
+    // }
+    private static void DFS(Integer v){
+        while(true){
+            explored.add(v);
+            if(adjListRev.containsKey(v)){
+                DFSdata1.add(v);
+                DFSdata2.add(0);
+                while(DFSdata2.get(DFSdata2.size()-1)<adjListRev.get(DFSdata1.get(DFSdata1.size()-1)).size()){
+                    if(!explored.contains(adjListRev.get(v).get(i))){
+                        // tmpList = null;
+                        // System.gc();
+                        DFS(adjListRev.get(v).get(i));
+                        // tmpList = adjListRev.get(v);
+                    }
+                    DFSdata2.set(DFSdata2.size()-1,DFSdata2.get(DFSdata2.size()-1)+1);
+                }
+                DFSdata1.remove(DFSdata1.size()-1);
+                DFSdata2.remove(DFSdata2.size()-1);
+            }
+        }
     }
     public static void main(String[] args) throws Exception{
         readFile();
@@ -87,6 +107,8 @@ public class SCC{
         vertOrder = new HashMap<Integer,Integer>();
         vertLeader = new HashMap<Integer,Integer>();
         explored = new HashSet<Integer>();
+        DFSdata1 = new ArrayList<Integer>();
+        DFSdata2 = new ArrayList<Integer>();
         t = 0;
         for (Map.Entry<Integer,List<Integer>> entry : adjListRev.entrySet()) {
             v1 = entry.getKey();
