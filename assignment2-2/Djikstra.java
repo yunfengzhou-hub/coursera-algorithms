@@ -60,7 +60,17 @@ public class Djikstra{
             }
             minDistances.put(tmpMinPoint,tmpMinDistance);
         }while(true);
-        System.out.println(minDistances.get(92));
+        System.out.println(
+            minDistances.get(7) + "," + 
+            minDistances.get(37) + "," + 
+            minDistances.get(59) + "," + 
+            minDistances.get(82) + "," + 
+            minDistances.get(99) + "," + 
+            minDistances.get(115) + "," + 
+            minDistances.get(133) + "," + 
+            minDistances.get(165) + "," + 
+            minDistances.get(188) + "," + 
+            minDistances.get(197));
         // System.out.println(adjMatrix[1][80]);
         // System.out.println(edge.size());
     }
