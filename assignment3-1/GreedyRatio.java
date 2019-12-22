@@ -3,13 +3,13 @@ import java.io.*;
 
 
 
-public class GreedyDifference{
-    static class DifferenceComparator implements Comparator<List<Integer>> {
+public class GreedyRatio{
+    static class RatioComparator implements Comparator<List<Integer>> {
         @Override
         public int compare(List<Integer> o1, List<Integer> o2) {
             // System.out.println(o1+" "+o2);
-            Integer d1 = o1.get(0)-o1.get(1);
-            Integer d2 = o2.get(0)-o2.get(1);
+            Double d1 = Double.valueOf(o1.get(0))/Double.valueOf(o1.get(1));
+            Double d2 = Double.valueOf(o2.get(0))/Double.valueOf(o2.get(1));
             if(d1>d2){
                 return -1;
             }else if(d1<d2){
@@ -47,14 +47,14 @@ public class GreedyDifference{
     }
     public static void main(String[] args) throws Exception{
         List<List<Integer>> number = readFile("jobs.txt");
-        Collections.sort(number, new DifferenceComparator());
-        // System.out.println(number);
+        Collections.sort(number, new RatioComparator());
+        System.out.println(number);
         Long cmpTime = Long.valueOf("0"), wCmpTime = Long.valueOf("0");
         Integer i;
         for(i=0;i<number.size();i++){
             cmpTime += Long.valueOf(number.get(i).get(1));
             wCmpTime += cmpTime*Long.valueOf(number.get(i).get(0));
         }
-        System.out.println(wCmpTime); // 69119377652
+        System.out.println(wCmpTime); // 67311454237
     }
 }
